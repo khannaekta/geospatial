@@ -17,6 +17,16 @@ s/ERROR:  geometry contains non-closed rings \(lwgeom_pg.c:\d+\) at/ERROR:  geom
 m/ERROR:  parse error - invalid geometry \(lwgeom_pg.c:\d+\)/
 s/ERROR:  parse error - invalid geometry \(lwgeom_pg.c:\d+\)/ERROR:  parse error - invalid geometry/
 
+m/ERROR:  transform_geom: couldn't parse proj4 output string: 'invalid projection': no arguments in initialization list.*/
+s/ERROR:  transform_geom: couldn't parse proj4 output string: 'invalid projection': no arguments in initialization list.*/ERROR:  transform_geom: couldn't parse proj4 output string: 'invalid projection': no arguments in initialization list/
+
+m/ERROR:  Geometry type \(Polygon\) does not match column type \(MultiPolygon\).*\n/
+s/ERROR:  Geometry type \(Polygon\) does not match column type \(MultiPolygon\).*\n//
+
+m/ \(seg\d+.*\)/
+s/ \(seg\d+.*\)//
+
 m/ \(lwgeom_pg.c:\d+\)/
 s/ \(lwgeom_pg.c:\d+\)//
+
 -- end_matchsubs

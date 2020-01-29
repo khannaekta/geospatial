@@ -2954,6 +2954,7 @@ Datum clusterintersecting_garray(PG_FUNCTION_ARGS)
 PG_FUNCTION_INFO_V1(cluster_within_distance_garray);
 Datum cluster_within_distance_garray(PG_FUNCTION_ARGS)
 {
+
 	Datum* result_array_data;
 	ArrayType *array, *result;
 	int is3d = 0;
@@ -2981,6 +2982,7 @@ Datum cluster_within_distance_garray(PG_FUNCTION_ARGS)
 		PG_RETURN_NULL();
 	}
 
+
 	nelems = array_nelems_not_null(array);
 
 	POSTGIS_DEBUGF(3, "cluster_within_distance_garray: number of non-null elements: %d", nelems);
@@ -3000,14 +3002,15 @@ Datum cluster_within_distance_garray(PG_FUNCTION_ARGS)
 
 	if (cluster_within_distance(lw_inputs, nelems, tolerance, &lw_results, &nclusters) != LW_SUCCESS)
 	{
-		elog(ERROR, "cluster_within: Error performing clustering");
 		PG_RETURN_NULL();
 	}
+
 	pfree(lw_inputs); /* don't need to destroy items because GeometryCollections have taken ownership */
 
 	if (!lw_results) PG_RETURN_NULL();
 
 	result_array_data = palloc(nclusters * sizeof(Datum));
+
 	for (i=0; i<nclusters; ++i)
 	{
 		result_array_data[i] = PointerGetDatum(gserialized_from_lwgeom(lw_results[i], NULL));
@@ -3020,7 +3023,6 @@ Datum cluster_within_distance_garray(PG_FUNCTION_ARGS)
 
 	if (!result)
 	{
-		elog(ERROR, "clusterwithin: Error constructing return-array");
 		PG_RETURN_NULL();
 	}
 

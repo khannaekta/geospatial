@@ -2,9 +2,9 @@
 # To deploy PostGIS onto Greenplum Database, we need to install
 # a set of 3rd-party libraries, e.g., geos, gdal, json-c, proj4,
 # etc. This file is created to deal with this kind of jobs.
-# 
-# Copyright (c) 2015 - 2016, Pivotal Inc. 
-# 
+#
+# Copyright (c) 2015 - 2016, Pivotal Inc.
+#
 #------------------------------------------------------------------#
 
 include $(BLD_TOP)/Makefile.global     # for BLD_ARCH
@@ -74,7 +74,7 @@ include $(BLD_TOP)/releng/gppkg.mk
 
 # trigger the compiling process
 build_postgis:
-	cd $(POSTGIS_DIR) && $(POSTGIS_DIR)/configure --with-geosconfig=$(GEOS_CONFIG) --with-projdir=$(PROJ_DIR) --with-jsondir=$(JSON_DIR) --with-gdalconfig=$(GDAL_CONFIG) --with-pgconfig=$(PG_CONFIG) --with-raster --without-topology	--prefix=$$GPHOME 
+	cd $(POSTGIS_DIR) && $(POSTGIS_DIR)/configure --with-geosconfig=$(GEOS_CONFIG) --with-gdalconfig=$(GDAL_CONFIG) --with-pgconfig=$(PG_CONFIG) --with-raster --without-topology	--prefix=$$GPHOME
 	$(MAKE) -C ..
 
 # for regressing
@@ -92,13 +92,17 @@ include Makefile.ops
 # for compiling
 gppkg: prepare build_postgis gppkg_only
 
-gppkg_only: $(GEOS_DIR) $(PROJ_DIR) $(JSON_DIR) $(GDAL_DIR) $(LIBEXPAT_DIR)
-	$(MAKE) $(GEOS_RPM) RPM_FLAGS=$(GEOS_RPM_FLAGS)
-	$(MAKE) $(PROJ_RPM) RPM_FLAGS=$(PROJ_RPM_FLAGS)
-	$(MAKE) $(JSON_RPM) RPM_FLAGS=$(JSON_RPM_FLAGS)
-	$(MAKE) $(GDAL_RPM) RPM_FLAGS=$(GDAL_RPM_FLAGS)
-	$(MAKE) $(LIBEXPAT_RPM) RPM_FLAGS=$(LIBEXPAT_RPM_FLAGS)
+# gppkg_only: $(GEOS_DIR) $(PROJ_DIR) $(JSON_DIR) $(GDAL_DIR) $(LIBEXPAT_DIR)
+# 	$(MAKE) $(GEOS_RPM) RPM_FLAGS=$(GEOS_RPM_FLAGS)
+# 	$(MAKE) $(PROJ_RPM) RPM_FLAGS=$(PROJ_RPM_FLAGS)
+# 	$(MAKE) $(JSON_RPM) RPM_FLAGS=$(JSON_RPM_FLAGS)
+# 	$(MAKE) $(GDAL_RPM) RPM_FLAGS=$(GDAL_RPM_FLAGS)
+# 	$(MAKE) $(LIBEXPAT_RPM) RPM_FLAGS=$(LIBEXPAT_RPM_FLAGS)
+# 	$(MAKE) $(POSTGIS_RPM) RPM_FLAGS=$(POSTGIS_RPM_FLAGS)
+# 	$(MAKE) $(POSTGIS_GPPKG) MAIN_RPM=$(POSTGIS_RPM) DEPENDENT_RPMS=$(DEPENDENT_RPMS)
+
+gppkg_only:
 	$(MAKE) $(POSTGIS_RPM) RPM_FLAGS=$(POSTGIS_RPM_FLAGS)
-	$(MAKE) $(POSTGIS_GPPKG) MAIN_RPM=$(POSTGIS_RPM) DEPENDENT_RPMS=$(DEPENDENT_RPMS)
+	$(MAKE) $(POSTGIS_GPPKG) MAIN_RPM=$(POSTGIS_RPM)
 
 .PHONY: gppkg
