@@ -714,7 +714,7 @@ GEOS_NUMERIC_VERSION="$GEOS_MAJOR_VERSION$GEOS_NUMERIC_MINOR_VERSION$GEOS_NUMERI
 
 dnl Ensure that we are using GEOS >= 3.5.0
 AC_MSG_RESULT([checking GEOS version... $GEOS_FULL_VERSION])
-if test ! "$GEOS_NUMERIC_VERSION" -ge 30500; then
+if test ! "$GEOS_NUMERIC_VERSION" -ge 30300; then
 	AC_MSG_ERROR([PostGIS requires GEOS >= 3.5.0])
 fi
 

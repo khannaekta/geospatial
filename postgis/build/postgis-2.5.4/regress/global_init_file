@@ -23,13 +23,13 @@ s/ERROR:  transform_geom: couldn't parse proj4 output string: 'invalid projectio
 m/ERROR:  Geometry type \(Polygon\) does not match column type \(MultiPolygon\).*\n/
 s/ERROR:  Geometry type \(Polygon\) does not match column type \(MultiPolygon\).*\n//
 
-m/ \(seg\d+.*\)/
-s/ \(seg\d+.*\)//
+m/\s*\(seg\d+[^\(]*\)/
+s/\s*\(seg\d+[^\(]*\)//
 
-m/ \(lwgeom_pg.c:\d+\)/
-s/ \(lwgeom_pg.c:\d+\)//
+#m/ \(lwgeom_pg\.c:\d+\)/
+#s/ \(lwgeom_pg\.c:\d+\)//
 
-m/ \(.*.c:\d+\)/
-s/ \(.*.c:\d+\)//
+m/\s*\([^\(]*\.c:\d+\)/
+s/\s*\([^\(]*\.c:\d+\)//
 
 -- end_matchsubs

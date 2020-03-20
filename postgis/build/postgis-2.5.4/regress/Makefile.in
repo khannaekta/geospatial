@@ -167,6 +167,7 @@ endif
 # ST_RelateMatch, ST_IsValidDetail, ST_SharedPaths ,
 # ST_Snap, ST_UnaryUnion, ST_MakeClean
 TESTS += \
+	offsetcurve \
 	relatematch \
 	isvaliddetail \
 	sharedpaths \
@@ -175,8 +176,6 @@ TESTS += \
 	unaryunion \
 	clean \
 	relate_bnr
-
-#	offsetcurve \
 
 # GEOS-3.4 adds:
 # ST_DelaunayTriangles
@@ -266,6 +265,8 @@ ifeq ($(HAVE_SFCGAL),yes)
 	SFCGALTESTFLAGS = --sfcgal
 endif
 
+# TODO: Revert this. Turn off tests for now to get to raster faster
+# TESTS = affine
 
 all install uninstall:
 

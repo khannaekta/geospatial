@@ -745,6 +745,7 @@ sub run_simple_test
 	@lines = grep(!/^(LOG|SET|TRUNCATE|DISCARD)/, @lines);
 	@lines = grep(!/^LINE \d/, @lines);
 	@lines = grep(!/^\s+$/, @lines);
+    @lines = grep(!/NOTICE:  Table doesn't have 'distributed by' clause/i, @lines);
 
 	# Morph values into expected forms
 	for ( my $i = 0; $i < @lines; $i++ )
@@ -1216,7 +1217,8 @@ sub run_raster_loader_test
 sub count_db_objects
 {
 	my $count = sql("WITH counts as (
-		select count(*) from pg_type union all
+		select count(*) from pg_type
+            where typname NOT LIKE '__%' union all
 		select count(*) from pg_proc union all
 		select count(*) from pg_cast union all
 		select count(*) from pg_aggregate union all
@@ -1606,9 +1608,8 @@ sub uninstall_spatial
 
 		if ( $OBJ_COUNT_POST != $OBJ_COUNT_PRE )
 		{
-			#fail("Object count pre-install ($OBJ_COUNT_PRE) != post-uninstall ($OBJ_COUNT_POST)");
-			#return 0;
-            return 1;
+			fail("Object count pre-install ($OBJ_COUNT_PRE) != post-uninstall ($OBJ_COUNT_POST)");
+			return 0;
 		}
 		else
 		{
