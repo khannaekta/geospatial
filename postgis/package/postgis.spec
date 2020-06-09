@@ -28,7 +28,6 @@ cp $GPHOME/lib/postgresql/address_standardizer.so %{buildroot}/temp/lib/postgres
 mkdir -p %{buildroot}/temp/share/postgresql/contrib/postgis-2.5/
 mkdir -p %{buildroot}/temp/share/postgresql/contrib/postgis-2.5/{install,upgrade,uninstall}/
 mkdir -p %{buildroot}/temp/share/postgresql/extension/
-mkdir -p %{buildroot}/temp/share/postgresql/extra/utility/
 
 cp $GPHOME/share/postgresql/contrib/postgis-2.5/postgis.sql %{buildroot}/temp/share/postgresql/contrib/postgis-2.5/install/
 cp $GPHOME/share/postgresql/contrib/postgis-2.5/rtpostgis.sql %{buildroot}/temp/share/postgresql/contrib/postgis-2.5/install/
@@ -51,9 +50,6 @@ cp $GPHOME/share/postgresql/extension/address_standardizer.control %{buildroot}/
 cp $GPHOME/share/postgresql/extension/address_standardizer_data_us.control %{buildroot}/temp/share/postgresql/extension/
 cp $GPHOME/share/postgresql/extension/postgis*.sql %{buildroot}/temp/share/postgresql/extension/
 cp $GPHOME/share/postgresql/extension/address_standardizer*.sql %{buildroot}/temp/share/postgresql/extension/
-cp $GPHOME/share/postgresql/extra/create_geocode.sql %{buildroot}/temp/share/postgresql/extra/
-cp $GPHOME/share/postgresql/extra/tiger_loader_2017.sql %{buildroot}/temp/share/postgresql/extra/
-cp $GPHOME/share/postgresql/extra/utility/*.sql %{buildroot}/temp/share/postgresql/extra/utility/
 
 %files
 /temp/bin/pgsql2shp
