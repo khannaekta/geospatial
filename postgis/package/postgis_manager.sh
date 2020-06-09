@@ -18,6 +18,14 @@ if [ "$#" -eq 2 ]
 	then
 		psql -d $1 -f $GPHOME/share/postgresql/contrib/postgis-2.5/uninstall/uninstall_rtpostgis.sql;
 		psql -d $1 -f $GPHOME/share/postgresql/contrib/postgis-2.5/uninstall/uninstall_postgis.sql;
+	elif [ "$2" = "install-ext" ]
+	then
+		psql -d $1 -c "CREATE SCHEMA tiger; CREATE SCHEMA tiger_data;";
+		psql -d $1 -c "CREATE EXTENSION fuzzystrmatch;";
+		cd /Users/pivotal/workspace/geospatial/postgis/build/postgis-2.5.4/extras/tiger_geocoder;
+		psql -d $1 -f "create_geocode.sql";
+		psql -d $1 -f "tiger_loader_2017.sql";
+		# psql -d $1 -f $GPHOME/share/postgresql/extension/postgis_tiger_geocoder--2.5.4.sql;
 	else
 		echo "Invalid option. Please try install, upgrade or uninstall"
 	fi
